@@ -1,0 +1,14 @@
+SQL> desc Layered_student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SNO                                       NOT NULL NUMBER(5)
+ SNAME                                              VARCHAR2(20)
+ TOTAL                                              NUMBER(10)
+ AVG                                                NUMBER(10,2)
+ RESULT                                             VARCHAR2(10)
+ SADD                                               VARCHAR2(10)
+ 
+ SQL>create sequence sno_seq1 start with 1 increment by 1;
+ 
+ create table Layered_student(SNO INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,SNAME varchar(20),TOTAL FLOAT(7,4),AVG FLOAT(7,4),RESULT varchar(20),SADD varchar(20));
+ 

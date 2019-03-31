@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+  <!-- Cfg Datasource -->
+  <bean id="apacheDs" class="com.zaxxer.hikari.HikariDataSource">
+     <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+     <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring"/>
+     <property name="username" value="root"/>
+     <property name="password" value="1068"/>
+  </bean>
+ <bean id="jt" class="org.springframework.jdbc.core.JdbcTemplate">
+    <property name="dataSource" ref="apacheDs"/>
+  </bean>
+  <!-- cfg DAO class -->
+  <bean id="bankDAO"  class="com.nt.dao.BankDAOImpl">
+    <constructor-arg ref="jt"/>
+  </bean>
+   <bean id="bankService"  class="com.nt.service.BankServiceImpl">
+     <constructor-arg ref="bankDAO"/>
+   </bean>
+   <bean id="dsTxMgmr" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <constructor-arg ref="apacheDs"/>
+  </bean>
+  <bean id="tpfb" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+    <property name="target"  ref="bankService"/>
+    <property name="transactionManager" ref="dsTxMgmr"/>
+    <property name="transactionAttributes">
+     <props>
+        <prop key="transferMoney">PROPAGATION_REQUIRED</prop>
+       <!--  <prop key="transferMoney">-java.sql.SQLException</prop> 
+ -->      <prop key="transferMoney">+java.lang.IllegalArgumentException</prop> 
+         <prop key="transferMoney">timeout_20</prop>
+      </props>
+    
+    </property>
+    </bean>
+</beans>

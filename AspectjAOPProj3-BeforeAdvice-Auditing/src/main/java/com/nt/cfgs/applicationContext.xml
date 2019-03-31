@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+   
+   <bean id="loanApprover"  class="com.nt.service.LoanApprover"/>
+   
+   <bean id="auditAspect" class="com.nt.aspect.LoanAuditAspect"/>
+   
+   <aop:config>
+      <aop:aspect ref="auditAspect">
+        <!-- <aop:before  method="audit"    pointcut="execution(String com.nt.service.LoanApprover.approveLoan(..))"/> -->
+        <aop:before  method="audit"  arg-names="id,manager,amt"   pointcut="execution(String com.nt.service.LoanApprover.approveLoan(..)) and args(id) and args(manager) and args(amt)"/>
+      </aop:aspect>
+   </aop:config>
+
+</beans>

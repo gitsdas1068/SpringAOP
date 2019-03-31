@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+  <!-- Cfg Target class -->
+  <bean id="target" class="com.nt.service.AirthmeticOperations"/>
+  
+  <!-- Cfg advice class -->
+  <bean id="pmAdvice" class="com.nt.advice.PerformanceMonitoringAdvice"/>
+  <bean id="cahceAdvice" class="com.nt.advice.CacheAdvice"/>
+  
+  <!-- Cfg Pointcut class -->
+  <bean id="ptc"  class="com.nt.pointcut.CommonMulMethodDynaPointcut"/>
+ 
+   <!-- Cfg Advisor class -->
+   <bean id="pmAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+      <property name="advice" ref="pmAdvice"/>
+      <property name="pointcut" ref="ptc"/>
+   </bean>
+   
+   
+   <!-- Cfg Advisor class -->
+   <bean id="cahcheAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor" >
+      <property name="advice" ref="cahceAdvice"/>
+      <property name="pointcut" ref="ptc"/>
+   </bean>
+   
+   
+  <!-- Cfg ProxyFactoryBean -->
+  <bean id="pfb" class="org.springframework.aop.framework.ProxyFactoryBean">
+    <property name="target" ref="target"/>
+    <property name="interceptorNames">
+      <array>
+       <value>cahcheAdvisor</value>
+        <value>pmAdvisor</value>
+      </array>
+    </property>
+  </bean>
+</beans>

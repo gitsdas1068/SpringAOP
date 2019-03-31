@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+  <!-- DataSource cfg -->
+  <bean id="drds"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+       <property name="driverClassName"  value="com.mysql.jdbc.Driver"/>
+       <property name="url" value="jdbc:mysql://localhost:3306/spring"/>
+       <property name="username" value="root"/>
+       <property name="password"  value="1068"/>
+  </bean>	
+  <!-- DAO  cfg -->
+  <bean id="stDAO"   class="com.nt.dao.TicketDAOImpl">
+     <constructor-arg  ref="drds"/>
+  </bean>
+  <!-- Service cfg -->
+  <bean id="stService"  class="com.nt.service.TicketServiceImpl">
+       <constructor-arg  ref="stDAO"/>
+  </bean>
+  <!-- Controller cfg -->
+  <bean id="controller"   class="com.nt.controller.MainController">
+      <constructor-arg  ref="stService"/>
+  </bean>
+</beans>

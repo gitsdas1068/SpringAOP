@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	
+  <bean id="dt"  class="java.util.Date"/>	
+ <!-- dependent bean cfg -->	 
+ <bean id="agMenu"  class="com.nt.beans.AmoghaMenu">
+     <property name="date" value="#{dt}"/>
+     <property name="type" value="SouthIndianBreakfast"/>
+     <property name="items">
+       <list>
+          <value>dosa</value>
+          <value>idly</value>
+          <value>wada</value>
+          <value>bonda</value>
+       </list>
+     </property>
+     <property name="itemPrices">
+         <map>
+           <entry key="dosa" value="40"/>
+           <entry key="idly" value="25"/>
+           <entry key="wada" value="40"/>
+           <entry key="bonda" value="30"/>
+         </map>
+     </property>
+     <property name="todaysSpecial" value="lemonRice"/>
+     <property name="todaysSepcialPrice" value="60"/>
+     <property name="todaysOffer" value="15.5f"/>
+ </bean>	
+ 
+ <!-- Target Bean cfg -->
+ <bean id="agCounter" class="com.nt.beans.AmoghaBillCounter">
+    <property name="date" value="#{dt}"/>
+    <property name="orderId" value="#{ T(java.lang.Math).random()*100}"></property>
+    <property name="orderItems">
+       <list>
+         <value>#{agMenu.items[2]}</value>
+         <value>#{agMenu.items[0]}</value>
+         <value>#{agMenu.todaysSpecial}</value>
+       </list>
+    </property>
+    <property name="billClerk" value="jambu"/>
+    <property name="billAmount" value="#{agMenu.itemPrices['dosa']+agMenu.itemPrices['wada']+agMenu.todaysSepcialPrice}"/>
+     <property name="specialItemAvailable" value="#{agMenu.todaysSpecial.length()!=0}"/>
+ </bean>
+
+
+</beans>

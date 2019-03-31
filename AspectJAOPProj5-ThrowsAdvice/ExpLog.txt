@@ -1,0 +1,2 @@
+ERROR  com.nt.aspect.CommonExceptionLogger.exceptionLogging(CommonExceptionLogger.java:24)  [main]  aspect.CommonExceptionLogger java.lang.IllegalArgumentException: Invalid Inputs exception is raised    19 Feb 2019 15:45:15,390 
+ERROR  com.nt.aspect.CommonExceptionLogger.exceptionLogging(CommonExceptionLogger.java:19)  [main]  aspect.CommonExceptionLogger java.lang.IllegalArgumentException: Invalid Inputs exception is raised  infloat com.nt.service.PriceCalculator.calcPrice(int,float) method with args[0, 10000.0]  19 Feb 2019 15:45:46,078 

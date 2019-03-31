@@ -1,0 +1,1 @@
+ERROR  com.nt.aspect.CommonExceptionLogger.exceptionLogging(CommonExceptionLogger.java:22)  [main]  aspect.CommonExceptionLogger 2java.lang.IllegalArgumentException: Invalid Inputs exception is raised    12 Oct 2018 08:33:51,048 

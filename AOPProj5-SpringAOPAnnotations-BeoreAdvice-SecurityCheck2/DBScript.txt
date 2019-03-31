@@ -1,0 +1,17 @@
+SQL> select * from userlist;
+
+UNAME           PWD
+--------------- ---------------
+raja            rani
+king            kingdom
+jani            begum
+ramesh          suresh
+insert into userlist(UNAME,PWD) values('raja','rani');
+insert into account(ACNO,HOLDERNAME,BALANCE) values(101,'raja',90000);
+SQL> select * from account;
+
+      ACNO HOLDERNAME              BALANCE
+---------- -------------------- ----------
+       101 raja                      90000
+       102 rani                      80000
+       103 ramesh                    40000
